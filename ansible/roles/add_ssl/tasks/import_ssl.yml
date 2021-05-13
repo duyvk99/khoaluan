@@ -1,0 +1,11 @@
+---
+- name: Config Domain Nginx
+  template:
+    src: "templates/domain.com.conf.j2"
+    dest: "/etc/nginx/conf.d/{{ http_conf }}"
+  notify:
+    - start nginx
+    - restart nginx
+
+- name: Flush handlers
+  meta: flush_handlers
