@@ -1,7 +1,7 @@
 resource "openstack_compute_instance_v2" "vps" {  
     name = "Ansible Agent"  # name instance
     image_name = "CentOS-7"  # image name  
-    flavor_name = "ECLOUD10" # (option for flavor_id) 
+    flavor_name = "t1.medium" # (option for flavor_id) 
     key_pair = var.openstack_keypair  
     security_groups = [var.segroup] 
     network {    
@@ -79,7 +79,7 @@ output "address" {
 resource "openstack_compute_instance_v2" "zbx" {  
     name = "Zabbix"  # name instance
     image_name = "CentOS-7"  # image name  
-    flavor_name = "ECLOUD10" # (option for flavor_id) 
+    flavor_name = "t1.medium" # (option for flavor_id) 
     key_pair = var.openstack_keypair  
     security_groups = [var.segroup]  
     network {    
