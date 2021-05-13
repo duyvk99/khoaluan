@@ -1,2 +1,4 @@
 # khoaluan
-Own by Duy Hai# khoaluan
+Terraform
+Ansible
+Docker
