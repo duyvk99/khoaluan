@@ -2,13 +2,13 @@
 # Check dir
 - name: Ansible check directory.
   stat:
-    path: "{{ ssl_folder }}"
-  register: source_folder
+    path: "{{ ssl_folder }}/live/{{ domain_name }}"
+  register: ssl_folder
 
 - name: "Echo if directory already existed"
   debug:
     msg: "Root Folder is already existed"
-  when: source_folder.stat.exists
+  when: ssl_folder.stat.exists
 
 - name: "Ansible Create directory if not exists"
   file:
@@ -19,15 +19,28 @@
     owner: nginx
   with_items:
     - "{{ ssl_folder }}"
-  when: source_folder.stat.exists == false
+  when: ssl_folder.stat.exists == false
 
 # Copy Cert
 - name: Copy Cert
   copy:
     src: "{{ item }}"
-    dest: "{{ ssl_folder }}"
+    dest: "{{ ssl_folder }}/live/{{ domain_name }}"
     owner: root
     group: root
     mode: 0755
   with_fileglob:
     - ./roles/add_ssl/files/*
+
+- name: Download foo.conf
+  get_url:
+    url: https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf
+    dest: "{{ ssl_folder }}"
+    mode: '0644'
+  
+- name: Download foo.conf
+  get_url:
+    url: https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem
+    dest: "{{ ssl_folder }}"
+    mode: '0644'
+
