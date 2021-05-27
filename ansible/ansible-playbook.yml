@@ -4,7 +4,7 @@
   become: yes
   become_user: root
   roles:
-    - lemp
-    - firewalld
-    - import_source
-    # - add_ssl
+    # - lemp
+    # - firewalld
+    # - import_source
+    - add_ssl

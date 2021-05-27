@@ -1,46 +1,57 @@
 ---
-# Check dir
+
 - name: Ansible check directory.
   stat:
-    path: "{{ ssl_folder }}"/live/"{{ domain_name }}"
-  register: ssl_folder
+    path: "{{ ssl_folder }}"
+  register: cert_folder
 
 - name: "Echo if directory already existed"
   debug:
-    msg: "Root Folder is already existed"
-  when: ssl_folder.stat.exists
+    msg: "SSL Folder is already existed"
+  when: cert_folder.stat.exists
 
 - name: "Ansible Create directory if not exists"
   file:
-    path: "{{ item }}"
+    path: "{{ ssl_folder }}"
     state: directory
     mode: 0755
     group: nginx
     owner: nginx
-  with_items:
-    - "{{ ssl_folder }}"
-  when: ssl_folder.stat.exists == false
+  when: cert_folder.stat.exists == false
 
-# Copy Cert
-- name: Copy Cert
-  copy:
-    src: "{{ item }}"
-    dest: "{{ ssl_folder }}"/live/"{{ domain_name }}"
-    owner: root
-    group: root
-    mode: 0755
-  with_fileglob:
-    - ./roles/add_ssl/files/*
-
-- name: Download foo.conf
+- name: Download options-ssl-nginx.conf
   get_url:
     url: https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf
-    dest: "{{ ssl_folder }}"
+    dest: "{{ ssl_folder }}/options-ssl-nginx.conf"
     mode: '0644'
   
-- name: Download foo.conf
+- name: Download ssl-dhparams.pem
   get_url:
     url: https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem
-    dest: "{{ ssl_folder }}"
+    dest: "{{ ssl_folder }}/ssl-dhparams.pem"
+    mode: '0644'
+
+- name: Download cert.pem
+  get_url:
+    url: https://raw.githubusercontent.com/vuukhanhduy/khoaluan/main/ansible/roles/add_ssl/files/cert.pem
+    dest: "{{ ssl_folder }}/cert.pem"
+    mode: '0644'
+  
+- name: Download chain.pem
+  get_url:
+    url: https://raw.githubusercontent.com/vuukhanhduy/khoaluan/main/ansible/roles/add_ssl/files/chain.pem
+    dest: "{{ ssl_folder }}/chain.pem"
+    mode: '0644'
+
+- name: Download fullchain.pem
+  get_url:
+    url: https://raw.githubusercontent.com/vuukhanhduy/khoaluan/main/ansible/roles/add_ssl/files/fullchain.pem
+    dest: "{{ ssl_folder }}/fullchain.pem"
+    mode: '0644'
+  
+- name: Download privkey.pem
+  get_url:
+    url: https://raw.githubusercontent.com/vuukhanhduy/khoaluan/main/ansible/roles/add_ssl/files/privkey.pem
+    dest: "{{ ssl_folder }}/privkey.pem"
     mode: '0644'
 
