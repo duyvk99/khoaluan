@@ -2,7 +2,7 @@
 # Check dir
 - name: Ansible check directory.
   stat:
-    path: "{{ ssl_folder }}/live/{{ domain_name }}"
+    path: "{{ ssl_folder }}"/live/"{{ domain_name }}"
   register: ssl_folder
 
 - name: "Echo if directory already existed"
@@ -25,7 +25,7 @@
 - name: Copy Cert
   copy:
     src: "{{ item }}"
-    dest: "{{ ssl_folder }}/live/{{ domain_name }}"
+    dest: "{{ ssl_folder }}"/live/"{{ domain_name }}"
     owner: root
     group: root
     mode: 0755
