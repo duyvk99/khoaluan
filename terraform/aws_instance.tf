@@ -57,19 +57,20 @@ resource "aws_instance" "web-server" {
     }
   }
 
-  # // Copy tất cả file trong thư mục docker đến /home/centos/docker
-  # provisioner "file" {
-  #   source      = "../docker"
-  #   destination = "~/"    // ~/ = /home/centos 
-  #   on_failure = continue
+  provisioner "remote-exec" {
+    inline = [
+      "cd ~/khoaluan/docker",
+      "docker-compose up -d",
+    ]
 
-  #   connection {
-  #     type        = "ssh"
-  #     user        = "centos"
-  #     private_key = file(var.ssh_key)
-  #     host        = aws_instance.web-server.public_ip
-  #   }
-  # }
+    connection {
+      type        = "ssh"
+      user        = "centos"
+      private_key = file(var.ssh_key)
+      host        = aws_instance.web-server.public_ip
+    }
+  }
+
  
   tags = {
     Name = "terraform-web-server"

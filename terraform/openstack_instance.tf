@@ -41,16 +41,7 @@ resource "openstack_compute_instance_v2" "vps" {
             host = openstack_compute_instance_v2.vps.network.0.fixed_ip_v4
         }
          
-        inline = [
-            # "yum -y update",
-            # "yum -y install yum-utils device-mapper-persistent-data lvm2",
-            # "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
-            # "yum -y install docker-ce",
-            # "systemctl start docker",
-            # "systemctl enable docker",
-            # "curl -L 'https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)' -o /usr/local/bin/docker-compose",
-            # "chmod +x /usr/local/bin/docker-compose",
-            # "ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose"            
+        inline = [            
             "hostnamectl set-hostname isphone.ga",
             "cat /root/id_rsa.pub >> /root/.ssh/authorized_keys",
             "rm -rf ~/id_rsa.pub",
