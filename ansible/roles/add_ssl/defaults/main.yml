@@ -1,8 +1,0 @@
----
-domain_name: "localhost"
-http_port: "80"
-https_port: "443"
-http_conf: "default.conf"
-root_folder: "/var/www/html"
-log_folder: "/var/log/nginx"
-ssl_folder: "/etc/letsencrypt"
