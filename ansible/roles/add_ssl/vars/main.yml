@@ -1,0 +1,8 @@
+---
+domain_name: "isphone.ga"
+http_port: "80"
+https_port: "443"
+http_conf: "isphone.ga.conf"
+root_folder: "/home/{{ domain_name }}/public_html"
+log_folder: "/home/{{ domain_name }}/logs"
+ssl_folder: "/home/{{ domain_name }}/ssl"
