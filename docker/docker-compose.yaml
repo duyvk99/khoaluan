@@ -53,7 +53,8 @@ services:
     volumes: 
       - ./database:/var/lib/mysql/
       - ./mariadb/my.cnf:/etc/mysql/my.cnf
-      - ./source/database.sql:/docker-entrypoint-initdb.d/dump.sql
+ #    - ./source/database.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./db/blog.sql:/docker-entrypoint-initdb.d/dump.sql
     environment:
       - MYSQL_ROOT_USER=root
       - MYSQL_ROOT_PASSWORD=7581460d
