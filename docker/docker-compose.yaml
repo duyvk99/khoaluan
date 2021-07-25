@@ -34,7 +34,7 @@ services:
     volumes:
       - ./source:/data/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - ./ssl:/etc/letsencrypt
+        #     - ./ssl:/etc/letsencrypt
       - ./logs:/var/log/nginx
     networks:
       - project-network
@@ -74,7 +74,7 @@ services:
       - project-network
     environment: 
       - PMA_HOST=mariadb
-      - PMA_ABSOLUTE_URI=https://blog.isphone.ga/phpMyAdmin/
+      - PMA_ABSOLUTE_URI=http://blog.isphone.ga/phpMyAdmin/
     ports:
       - 8080:80
 #Docker Networksx
