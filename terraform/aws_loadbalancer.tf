@@ -10,12 +10,13 @@ resource "aws_eip" "aws-eip" {
 
 resource "aws_lb_target_group" "target-group-vps" {
   health_check {
-    interval = 30
+    interval = 10
     path     = "/"
     protocol = "HTTP"
-    timeout = 15
+    timeout = 5
     healthy_threshold = 5
     unhealthy_threshold = 2
+    matcher = 301
   }
 
   name = "target-group-vps"
@@ -51,7 +52,6 @@ resource "aws_lb_listener" "lb-listener" {
     load_balancer_arn = aws_lb.load-balancer.arn 
         port = 80 # 443
         protocol = "HTTP" # "HTTPS"
-        # certificate_arn = aws_acm_certificate.cert.arn
         default_action {
             target_group_arn =  aws_lb_target_group.target-group-vps.arn
             type = "forward"

@@ -48,6 +48,16 @@ resource "aws_route_table_association" "route_table"{
     route_table_id = aws_route_table.public-rt.id
 }
 
+resource "aws_route_table_association" "private_route"{
+    subnet_id = aws_subnet.private-subnet.id
+    route_table_id = aws_route_table.public-rt.id
+}
+
+resource "aws_route_table_association" "public_route"{
+    subnet_id = aws_subnet.public-subnet.id
+    route_table_id = aws_route_table.public-rt.id
+}
+
 resource "aws_security_group" "allow_ports" {
   name        = "allow_ports"
   description = "Allow all inbound ssh traffic "
